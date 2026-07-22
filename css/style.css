@@ -1,0 +1,29 @@
+html, body { margin: 0; height: 100%; }
+#map { position: absolute; inset: 0; }
+.leaflet-container { background: #111; font: 13px/1.4 system-ui, sans-serif; }
+
+/* Layer panel (built in Task 6) */
+#layer-panel {
+  position: absolute; top: 10px; right: 10px; z-index: 1000;
+  width: 240px; max-height: calc(100% - 20px); overflow-y: auto;
+  background: rgba(255,255,255,0.96); border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.3); padding: 8px; font: 13px/1.4 system-ui, sans-serif;
+}
+#layer-panel .cat { margin-bottom: 4px; }
+#layer-panel .cat > summary { cursor: pointer; font-weight: 600; list-style: none; padding: 3px 2px; }
+#layer-panel .prop { display: flex; align-items: center; gap: 6px; padding: 2px 2px 2px 18px; }
+#layer-panel .prop.unmapped { opacity: 0.45; }
+#layer-panel .swatch { width: 12px; height: 12px; border-radius: 2px; flex: 0 0 auto; border: 1px solid rgba(0,0,0,0.3); }
+.popup h3 { margin: 0 0 6px; font-size: 14px; }
+.popup .row { display: flex; gap: 8px; }
+.popup .row .k { color: #666; min-width: 96px; }
+
+/* Edit panel (built in Task 7) — hidden unless body.edit */
+#edit-panel { display: none; }
+body.edit #edit-panel {
+  display: block; position: absolute; top: 10px; left: 50px; z-index: 1000;
+  width: 260px; background: rgba(255,255,255,0.97); border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.3); padding: 10px;
+}
+#edit-panel label { display: block; margin: 6px 0 2px; font-size: 12px; color: #333; }
+#edit-panel .btn { display: inline-block; margin-top: 8px; padding: 6px 10px; cursor: pointer; }
