@@ -13,20 +13,46 @@
   <div id="layer-panel" hidden></div>
   <div id="edit-panel">
     <b>Edit mode</b>
-    <label>Active property</label>
+    <label for="edit-prop">Active property</label>
     <select id="edit-prop"></select>
-    <label>Color</label>
-    <input id="edit-color" type="color" value="#59a14f" />
-    <label>Line weight <span id="edit-weight-val">3</span></label>
-    <input id="edit-weight" type="range" min="1" max="10" step="1" value="3" />
-    <label>Fill transparency <span id="edit-fill-val">0.25</span></label>
-    <input id="edit-fill" type="range" min="0" max="1" step="0.05" value="0.25" />
-    <label><input id="edit-dash" type="checkbox" /> Dashed</label>
-    <div>
-      <span class="btn" id="edit-export">⬇ Export GeoJSON</span>
-      <label class="btn">⬆ Import<input id="edit-import" type="file" accept=".geojson,.json" hidden /></label>
-    </div>
-    <div id="edit-status" style="margin-top:6px;color:#666;font-size:11px;"></div>
+
+    <details open class="ep-sec">
+      <summary>Draw &amp; style</summary>
+      <label>Boundary color</label>
+      <input id="edit-color" type="color" value="#59a14f" />
+      <label>Line weight <span id="edit-weight-val">3</span></label>
+      <input id="edit-weight" type="range" min="1" max="10" step="1" value="3" />
+      <label>Fill transparency <span id="edit-fill-val">0.25</span></label>
+      <input id="edit-fill" type="range" min="0" max="1" step="0.05" value="0.25" />
+      <label><input id="edit-dash" type="checkbox" /> Dashed</label>
+      <div class="ep-row">
+        <span class="btn" id="edit-export">⬇ Export boundaries</span>
+        <label class="btn">⬆ Import<input id="edit-import" type="file" accept=".geojson,.json" hidden /></label>
+      </div>
+    </details>
+
+    <details class="ep-sec">
+      <summary>Manage properties</summary>
+      <label for="rp-name">Name</label>
+      <input id="rp-name" type="text" placeholder="e.g. Athletics Properties" />
+      <label for="rp-category">Category</label>
+      <select id="rp-category"></select>
+      <label for="rp-color">Default color</label>
+      <input id="rp-color" type="color" value="#76b7b2" />
+      <label for="rp-famis">FAMIS location(s) — comma separated</label>
+      <input id="rp-famis" type="text" placeholder="Raider Stadium, Softball Field" />
+      <div class="ep-row">
+        <span class="btn" id="rp-save">Save changes</span>
+        <span class="btn" id="rp-add">＋ Add new</span>
+        <span class="btn" id="rp-delete">🗑 Delete</span>
+      </div>
+      <div class="ep-row">
+        <span class="btn" id="rp-export">⬇ Export properties.json</span>
+        <label class="btn">⬆ Import<input id="rp-import" type="file" accept=".json" hidden /></label>
+      </div>
+    </details>
+
+    <div id="edit-status"></div>
   </div>
 
   <script src="vendor/leaflet/leaflet.js"></script>

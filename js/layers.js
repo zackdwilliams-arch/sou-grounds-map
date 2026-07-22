@@ -54,7 +54,8 @@
         cb.disabled = !hasGeom;
         const swatch = document.createElement('span');
         swatch.className = 'swatch';
-        swatch.style.background = (featureToPathStyle({ kind: 'polygon', category: p.category, style: {} })).color;
+        swatch.style.background = p.defaultColor
+          || (featureToPathStyle({ kind: 'polygon', category: p.category, style: {} })).color;
         const name = document.createElement('span');
         name.textContent = p.name + (hasGeom ? '' : ' (unmapped)');
         row.append(cb, swatch, name);
