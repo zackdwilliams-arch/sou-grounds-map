@@ -11,9 +11,12 @@ export const CATEGORY_ORDER = [
 ];
 
 export function buildLayerTree(roster) {
-  const byCat = new Map(CATEGORY_ORDER.map(c => [c, []]));
+  // Group order follows the roster's own categories list (data-driven, so renames /
+  // reorders stick); fall back to the seed order if a roster omits it.
+  const order = (roster.categories && roster.categories.length) ? roster.categories : CATEGORY_ORDER;
+  const byCat = new Map(order.map(c => [c, []]));
   for (const p of roster.properties) {
-    if (!byCat.has(p.category)) byCat.set(p.category, []); // unknown categories appended after the 8
+    if (!byCat.has(p.category)) byCat.set(p.category, []); // categories not in the list append after
     byCat.get(p.category).push(p);
   }
   return [...byCat.entries()]

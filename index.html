@@ -13,7 +13,8 @@
   <div id="layer-panel" hidden></div>
   <div id="edit-panel">
     <b>Edit mode</b>
-    <label for="edit-prop">Active property</label>
+    <div class="ep-hint">Edit properties &amp; groups in the panel on the right →<br>✎ rename · ＋ add · click a name to edit</div>
+    <label for="edit-prop">Active property (to draw)</label>
     <select id="edit-prop"></select>
 
     <details open class="ep-sec">
@@ -32,20 +33,7 @@
     </details>
 
     <details class="ep-sec">
-      <summary>Manage properties</summary>
-      <label for="rp-name">Name</label>
-      <input id="rp-name" type="text" placeholder="e.g. Athletics Properties" />
-      <label for="rp-category">Category</label>
-      <select id="rp-category"></select>
-      <label for="rp-color">Default color</label>
-      <input id="rp-color" type="color" value="#76b7b2" />
-      <label for="rp-famis">FAMIS location(s) — comma separated</label>
-      <input id="rp-famis" type="text" placeholder="Raider Stadium, Softball Field" />
-      <div class="ep-row">
-        <span class="btn" id="rp-save">Save changes</span>
-        <span class="btn" id="rp-add">＋ Add new</span>
-        <span class="btn" id="rp-delete">🗑 Delete</span>
-      </div>
+      <summary>Property list file</summary>
       <div class="ep-row">
         <span class="btn" id="rp-export">⬇ Export properties.json</span>
         <label class="btn">⬆ Import<input id="rp-import" type="file" accept=".json" hidden /></label>
