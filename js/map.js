@@ -17,9 +17,11 @@
       'Aerial': L.tileLayer(
         'https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/41468/{z}/{y}/{x}',
         { attribution: 'Imagery © Esri, Maxar, Earthstar Geographics (Wayback 2024-01)', maxNativeZoom: 19, maxZoom: 21 }),
+      // CARTO Positron: OSM-derived light-gray street map with sparse, subtle labels
+      // ("very minimal text"). Swap 'light_all' → 'light_nolabels' for zero text.
       'Street map': L.tileLayer(
-        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        { attribution: '© OpenStreetMap contributors', maxNativeZoom: 19, maxZoom: 21 }),
+        'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+        { attribution: '© OpenStreetMap contributors © CARTO', subdomains: 'abcd', maxNativeZoom: 20, maxZoom: 21 }),
     };
   }
 
