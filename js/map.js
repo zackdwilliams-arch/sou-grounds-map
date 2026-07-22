@@ -1,7 +1,7 @@
 // js/map.js — base map + basemap switcher. Plain script (references global L). Exposes window.SOUMap.
 (function () {
-  const SOU_CENTER = [42.1876, -122.6703]; // Ashland main campus (tunable)
-  const SOU_ZOOM = 16;
+  const SOU_CENTER = [42.1877985, -122.6927259]; // Wightman St ∩ Lee St, SOU campus (tunable)
+  const SOU_ZOOM = 17;
 
   // All keyless XYZ sources. Aerials have different capture dates, so if one has
   // cloud cover over campus at a given zoom, switch to another.

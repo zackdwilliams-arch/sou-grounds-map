@@ -43,6 +43,7 @@
       details.append(summary);
 
       const childCbs = [];
+      let rowsAdded = 0;
       for (const p of properties) {
         const hasGeom = groups.has(p.id);
         if (!hasGeom && !showUnmapped) continue;
@@ -58,6 +59,7 @@
         name.textContent = p.name + (hasGeom ? '' : ' (unmapped)');
         row.append(cb, swatch, name);
         details.append(row);
+        rowsAdded++;
         if (!hasGeom) continue;
         childCbs.push(cb);
 
@@ -73,6 +75,7 @@
         const state = computeParentState(childCbs.map(c => c.checked));
         parentCb.checked = state === 'checked';
         parentCb.indeterminate = state === 'indeterminate';
+        parentCb.disabled = childCbs.length === 0; // all-unmapped category: nothing to toggle
       }
       parentCb.addEventListener('change', () => {
         const state = computeParentState(childCbs.map(c => c.checked));
@@ -80,9 +83,10 @@
         for (const c of childCbs) { if (c.checked !== next) { c.checked = next; c.dispatchEvent(new Event('change')); } }
       });
 
-      if (childCbs.length) container.append(details);
+      if (rowsAdded) container.append(details); // show a category if it has ANY rows (mapped or unmapped)
       syncParent();
     }
+    container.hidden = container.children.length === 0; // hide the pane only when truly empty
     return shown;
   }
 
