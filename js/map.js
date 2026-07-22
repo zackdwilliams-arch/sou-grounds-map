@@ -3,33 +3,22 @@
   const SOU_CENTER = [42.1877985, -122.6927259]; // Wightman St ∩ Lee St, SOU campus (tunable)
   const SOU_ZOOM = 17;
 
-  // All keyless XYZ sources. Aerials have different capture dates, so if one has
-  // cloud cover over campus at a given zoom, switch to another.
-  //   Esri / Esri Clarity  → sub-meter, sharp to ~z19-20 (Clarity is a different capture,
-  //                          so it's the go-to when Esri has cloud over a spot).
-  //   USGS/NAIP            → USDA orthoimagery, acquired cloud-free, but only native to
-  //                          ~z16 here, so maxNativeZoom is capped and Leaflet upscales
-  //                          (blurry-but-present) past it instead of showing blank tiles.
-  //   OSM                  → street map.
+  // Two keyless XYZ sources: one good aerial + a street map. Esri World Imagery is
+  // recent, sub-meter Maxar, sharp to ~z19-20 over campus. (Esri Clarity [pre-2012] and
+  // USGS/NAIP [too low-res] were dropped 2026-07-22 — Zack: "just need one good aerial".)
   function baseLayers() {
     return {
-      'Aerial — Esri': L.tileLayer(
+      'Aerial': L.tileLayer(
         'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
         { attribution: 'Imagery © Esri, Maxar, Earthstar Geographics', maxNativeZoom: 19, maxZoom: 21 }),
-      'Aerial — Esri Clarity': L.tileLayer(
-        'https://clarity.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-        { attribution: 'Imagery © Esri (Clarity), Maxar, Earthstar Geographics', maxNativeZoom: 19, maxZoom: 21 }),
-      'Aerial — USGS/NAIP (cloud-free)': L.tileLayer(
-        'https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}',
-        { attribution: 'Imagery © USGS The National Map (NAIP)', maxNativeZoom: 16, maxZoom: 21 }),
-      'Street map — OSM': L.tileLayer(
+      'Street map': L.tileLayer(
         'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         { attribution: '© OpenStreetMap contributors', maxNativeZoom: 19, maxZoom: 21 }),
     };
   }
 
   // The default base — must be a key in baseLayers(). Change this string to re-default.
-  const DEFAULT_BASE = 'Aerial — Esri';
+  const DEFAULT_BASE = 'Aerial';
 
   function initMap(elementId) {
     const map = L.map(elementId, { zoomControl: true }).setView(SOU_CENTER, SOU_ZOOM);
