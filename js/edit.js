@@ -1,7 +1,6 @@
 // js/edit.js — ES module, loaded only under ?edit=1. Uses global L + Geoman.
 // LEFT panel = draw/style + file export/import. RIGHT panel (#layer-panel) = the
-// structure editor: rename groups, add/move/rename/recolor/delete properties, via one
-// delegated listener. fc.features is authoritative (Geoman create/edit/remove sync back).
+// structure editor (delegated). fc.features is authoritative.
 const BOUNDS_KEY = 'sou-grounds-map:draft';
 const ROSTER_KEY = 'sou-grounds-map:roster-draft';
 
@@ -13,12 +12,16 @@ export function initEditMode(app) {
   const status = msg => { $('edit-status').textContent = msg; };
   const sel = $('edit-prop');
 
+  let openEditorId = null;   // id of the property whose inline editor is open (survives rerenders)
+  let firstRender = true;    // first render shows everything; later renders preserve the user's show/hide
+
   const slugify = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
   const parseFamis = t => t.split(',').map(x => x.trim()).filter(Boolean);
   const autosaveBounds = () => localStorage.setItem(BOUNDS_KEY, JSON.stringify(fc));
   const autosaveRoster = () => localStorage.setItem(ROSTER_KEY, JSON.stringify({ categories: roster.categories, properties: roster.properties }));
   const clearBoundsDraft = () => localStorage.removeItem(BOUNDS_KEY);
   const clearRosterDraft = () => localStorage.removeItem(ROSTER_KEY);
+  const gcCategories = () => { roster.categories = roster.categories.filter(c => roster.properties.some(p => p.category === c)); };
 
   // ---- restore drafts (they exist only while there are unexported edits) ----
   try {
@@ -78,15 +81,17 @@ export function initEditMode(app) {
       style: currentStyle(), kind: isPoly ? 'polygon' : 'polyline', notes: '',
     };
     fc.features.push(geo);
-    e.layer.remove(); rerender(); autosaveBounds();
+    e.layer.remove(); rerender(entry.id); autosaveBounds();
     status(`Added ${geo.properties.kind} for ${entry.name} (${fc.features.length} total). Export boundaries to publish.`);
   });
+  // Vertex-edit / drag: sync geometry ONLY — a full rerender would destroy the layer
+  // Geoman is actively editing and orphan its drag markers.
   map.on('pm:update', e => {
     const f = e.layer && e.layer.feature;
     const i = f ? fc.features.indexOf(f) : -1;
     if (i < 0) return;
     fc.features[i].geometry = e.layer.toGeoJSON().geometry;
-    autosaveBounds(); rerender();
+    autosaveBounds();
     status('Updated boundary geometry. Export boundaries to publish.');
   });
   map.on('pm:remove', e => {
@@ -99,27 +104,61 @@ export function initEditMode(app) {
     status(`Removed a boundary${nm ? ' for ' + nm : ''} (${fc.features.length} left). Export boundaries to publish.`);
   });
 
-  function rerender() {
+  // Which mapped property ids are currently checked (visible)? null before any panel exists.
+  function currentlyShownIds() {
+    const rows = $('layer-panel').querySelectorAll('.prop');
+    if (!rows.length) return null;
+    const s = new Set();
+    rows.forEach(r => {
+      const cb = r.querySelector('input'); const nm = r.querySelector('.prop-name');
+      if (cb && !cb.disabled && cb.checked && nm && nm.dataset.id) s.add(nm.dataset.id);
+    });
+    return s;
+  }
+  function applyVisibility(desired) {
+    const panel = $('layer-panel');
+    panel.querySelectorAll('.prop').forEach(r => {
+      const cb = r.querySelector('input'); const nm = r.querySelector('.prop-name');
+      if (!cb || cb.disabled || !nm) return;
+      const show = desired === null ? true : desired.has(nm.dataset.id);
+      cb.checked = show;
+      const g = app.groups.get(nm.dataset.id);
+      if (g) { if (show) g.addTo(map); else map.removeLayer(g); }
+    });
+    panel.querySelectorAll('.cat').forEach(cat => {
+      const pc = cat.querySelector('summary > input');
+      if (!pc) return;
+      const kids = [...cat.querySelectorAll('.prop input:not([disabled])')];
+      const state = lib.computeParentState(kids.map(k => k.checked));
+      pc.checked = state === 'checked'; pc.indeterminate = state === 'indeterminate'; pc.disabled = kids.length === 0;
+    });
+  }
+  function rerender(showAlso) {
+    const desired = firstRender ? null : currentlyShownIds();
+    if (desired && showAlso) desired.add(showAlso);
     for (const g of app.groups.values()) map.removeLayer(g);
-    // Leaflet doesn't tear down permanent-tooltip DOM synchronously on removeLayer, so
-    // rapid successive edits can leave orphaned labels stacked on the map — sweep them.
+    // Leaflet doesn't tear down permanent-tooltip DOM synchronously — sweep stale labels.
     document.querySelectorAll('.leaflet-tooltip.boundary-label').forEach(el => el.remove());
     app.groups = window.SOULayers.render(map, fc);
     window.SOULayers.buildPanel($('layer-panel'), lib.buildLayerTree(roster), app.groups, map, { showUnmapped: true, editable: true });
-    for (const g of app.groups.values()) g.addTo(map);
-    const panel = $('layer-panel');
-    for (const cb of panel.querySelectorAll('.prop input:not([disabled])')) cb.checked = true;
-    for (const pc of panel.querySelectorAll('.cat > summary > input:not([disabled])')) { pc.checked = true; pc.indeterminate = false; }
+    applyVisibility(desired);
+    firstRender = false;
+    // re-open an inline editor that a map/structural action rebuilt out from under
+    if (openEditorId && roster.properties.some(p => p.id === openEditorId)) {
+      const nm = $('layer-panel').querySelector(`.prop-name[data-id="${openEditorId}"]`);
+      if (nm) openInlineEditor(openEditorId, nm.closest('.prop'));
+    }
   }
 
   // ---- right panel: structure editing (delegated) ----
   function renameGroup(oldName, newName) {
     newName = (newName || '').trim();
     if (!newName || newName === oldName) return;
-    if (roster.categories.includes(newName)) roster.categories = roster.categories.filter(c => c !== oldName); // merge into existing
+    if (roster.categories.includes(newName)) roster.categories = roster.categories.filter(c => c !== oldName); // merge
     else roster.categories = roster.categories.map(c => c === oldName ? newName : c);                          // rename in place
     for (const p of roster.properties) if (p.category === oldName) p.category = newName;
     for (const f of fc.features) if (f.properties && f.properties.category === oldName) f.properties.category = newName;
+    gcCategories();
     autosaveRoster(); autosaveBounds(); refreshPropertySelect(); rerender();
     status(`Renamed group "${oldName}" → "${newName}".`);
   }
@@ -138,6 +177,7 @@ export function initEditMode(app) {
     if (n > 0) { alert(`"${p.name}" has ${n} drawn boundary/ies — remove the shape(s) with the Geoman trash tool (top-left) first.`); return; }
     if (!confirm(`Delete property "${p.name}"?`)) return;
     roster.properties = roster.properties.filter(x => x.id !== id);
+    openEditorId = null; gcCategories();
     autosaveRoster(); refreshPropertySelect(); rerender();
     status(`Deleted "${p.name}".`);
   }
@@ -147,7 +187,7 @@ export function initEditMode(app) {
     if (!name) { alert('Name required.'); return; }
     let category = box.querySelector('.pe-group').value;
     if (category === '__newgroup__') category = p.category;
-    if (!roster.categories.includes(category)) roster.categories.push(category); // persist a brand-new group on save
+    if (!roster.categories.includes(category)) roster.categories.push(category); // persist a brand-new group
     const color = box.querySelector('.pe-color').value;
     const famis = parseFamis(box.querySelector('.pe-famis').value);
     p.name = name; p.category = category; p.defaultColor = color; p.famis_locations = famis;
@@ -155,6 +195,7 @@ export function initEditMode(app) {
       f.properties.name = name; f.properties.category = category; f.properties.famis_locations = famis.slice();
       f.properties.style = { ...(f.properties.style || {}), color };
     }
+    openEditorId = null; gcCategories();
     autosaveRoster(); autosaveBounds(); refreshPropertySelect(id); rerender();
     status(`Saved "${name}".`);
   }
@@ -162,10 +203,15 @@ export function initEditMode(app) {
     document.querySelectorAll('#layer-panel .prop-editor').forEach(e => e.remove());
     const p = roster.properties.find(x => x.id === id);
     if (!p || !rowEl) return;
+    openEditorId = id;
     const box = document.createElement('div'); box.className = 'prop-editor';
     const name = mkInput('text', p.name, 'pe-name');
     const group = document.createElement('select'); group.className = 'pe-group';
-    for (const c of roster.categories) { const o = document.createElement('option'); o.value = c; o.textContent = c; if (c === p.category) o.selected = true; group.append(o); }
+    // always include the property's current category, even if it's not in roster.categories,
+    // so Save can't silently reassign it to categories[0].
+    for (const c of new Set([p.category, ...roster.categories])) {
+      const o = document.createElement('option'); o.value = c; o.textContent = c; if (c === p.category) o.selected = true; group.append(o);
+    }
     const nw = document.createElement('option'); nw.value = '__newgroup__'; nw.textContent = '＋ New group…'; group.append(nw);
     group.addEventListener('change', () => {
       if (group.value !== '__newgroup__') return;
@@ -174,7 +220,7 @@ export function initEditMode(app) {
         if (![...group.options].some(o => o.value === nm)) {
           const o = document.createElement('option'); o.value = nm; o.textContent = nm + ' (new)'; group.insertBefore(o, nw);
         }
-        group.value = nm;                 // persisted on Save
+        group.value = nm;
       } else { group.value = p.category; }
     });
     const color = mkInput('color', p.defaultColor || '#76b7b2', 'pe-color');
@@ -197,10 +243,10 @@ export function initEditMode(app) {
     else if (a === 'edit-prop') { e.preventDefault(); openInlineEditor(t.dataset.id, t.closest('.prop')); }
     else if (a === 'save-prop') { e.preventDefault(); savePropFrom(t.closest('.prop-editor'), t.dataset.id); }
     else if (a === 'delete-prop') { e.preventDefault(); deleteProperty(t.dataset.id); }
-    else if (a === 'cancel-prop') { e.preventDefault(); const b = t.closest('.prop-editor'); if (b) b.remove(); }
+    else if (a === 'cancel-prop') { e.preventDefault(); openEditorId = null; const b = t.closest('.prop-editor'); if (b) b.remove(); }
   });
 
-  // ---- exports / imports ----
+  // ---- exports / imports (the two files are coupled — warn if one lags) ----
   function download(filename, text, type) {
     const blob = new Blob([text], { type });
     const a = document.createElement('a');
@@ -209,11 +255,13 @@ export function initEditMode(app) {
   }
   $('edit-export').addEventListener('click', () => {
     download('boundaries.geojson', JSON.stringify(fc, null, 2) + '\n', 'application/geo+json');
-    clearBoundsDraft(); status('Exported boundaries.geojson — commit it to data/ to publish.');
+    clearBoundsDraft();
+    status('Exported boundaries.geojson — commit it to data/ to publish.' + (localStorage.getItem(ROSTER_KEY) ? ' ⚠️ properties.json also has unexported edits — export it too.' : ''));
   });
   $('rp-export').addEventListener('click', () => {
     download('properties.json', JSON.stringify({ categories: roster.categories, properties: roster.properties }, null, 2) + '\n', 'application/json');
-    clearRosterDraft(); status('Exported properties.json — commit it to data/ to publish.');
+    clearRosterDraft();
+    status('Exported properties.json — commit it to data/ to publish.' + (localStorage.getItem(BOUNDS_KEY) ? ' ⚠️ boundaries.geojson also has unexported edits — export it too.' : ''));
   });
   $('edit-import').addEventListener('change', ev => {
     const file = ev.target.files[0]; if (!file) return;

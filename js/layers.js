@@ -8,7 +8,7 @@
   // Each boundary gets a popup AND a permanent name label (the map's core job is
   // telling you which property you're on, especially where two properties meet).
   function render(map, fc) {
-    const { featureToPathStyle, ringAreaSqMeters, formatArea, buildPopupHtml } = lib();
+    const { featureToPathStyle, ringAreaSqMeters, formatArea, buildPopupHtml, escapeHtml } = lib();
     const groups = new Map();
     for (const feature of fc.features) {
       const props = feature.properties;
@@ -18,7 +18,8 @@
         areaLabel = formatArea(ringAreaSqMeters(feature.geometry.coordinates[0])).label;
       }
       layer.bindPopup(buildPopupHtml(props, areaLabel));
-      layer.eachLayer(l => l.bindTooltip(props.name || '', {
+      // Leaflet renders string tooltip content as innerHTML — escape (same as the popup).
+      layer.eachLayer(l => l.bindTooltip(escapeHtml(props.name || ''), {
         permanent: true, direction: 'center', className: 'boundary-label', opacity: 1,
       }));
       if (!groups.has(props.id)) groups.set(props.id, L.layerGroup());
