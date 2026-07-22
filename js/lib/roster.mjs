@@ -25,5 +25,9 @@ export function buildLayerTree(roster) {
 }
 
 export function mappedIds(featureCollection) {
-  return new Set((featureCollection.features || []).map(f => f.properties.id));
+  return new Set(
+    (featureCollection.features || [])
+      .map(f => f && f.properties && f.properties.id)
+      .filter(id => id != null)
+  );
 }

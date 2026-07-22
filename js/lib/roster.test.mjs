@@ -26,3 +26,11 @@ test('mappedIds returns the set of feature property ids', () => {
   const ids = mappedIds(fc);
   assert.ok(ids.has('rec') && ids.has('alpha') && !ids.has('zeta'));
 });
+test('mappedIds tolerates null/propertyless features (RFC7946 allows properties:null)', () => {
+  const fc = { type: 'FeatureCollection', features: [
+    null, { properties: null }, { properties: {} }, { properties: { id: 'rec' } },
+  ]};
+  const ids = mappedIds(fc);
+  assert.ok(ids.has('rec'));
+  assert.equal(ids.size, 1); // no undefined/null leaked into the set
+});

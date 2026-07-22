@@ -18,7 +18,7 @@ export function validateData(roster, fc) {
     if ('category' in p && !categories.has(p.category)) errors.push(`feature[${i}] category "${p.category}" not in roster`);
     if ('id' in p && !rosterIds.has(p.id)) errors.push(`feature[${i}] id "${p.id}" not in roster`);
     if ('kind' in p && !['polygon', 'polyline'].includes(p.kind)) errors.push(`feature[${i}] bad kind "${p.kind}"`);
-    if (!f.geometry) errors.push(`feature[${i}] missing geometry`);
+    if (!f || !f.geometry) errors.push(`feature[${i}] missing geometry`);
   });
   return errors;
 }

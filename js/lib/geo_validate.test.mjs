@@ -26,3 +26,8 @@ test('flags unknown category, unknown id, bad kind, missing keys, missing geomet
 test('flags a non-FeatureCollection', () => {
   assert.ok(validateData(roster, { type: 'Nope', features: [] }).some(e => /FeatureCollection/.test(e)));
 });
+test('a null feature entry yields an error, not a thrown exception', () => {
+  const errs = validateData(roster, { type: 'FeatureCollection', features: [null] });
+  assert.ok(Array.isArray(errs));
+  assert.ok(errs.some(e => /missing geometry/.test(e)));
+});
