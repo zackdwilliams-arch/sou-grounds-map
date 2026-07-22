@@ -11,7 +11,23 @@
 <body>
   <div id="map"></div>
   <div id="layer-panel" hidden></div>
-  <div id="edit-panel"></div>
+  <div id="edit-panel">
+    <b>Edit mode</b>
+    <label>Active property</label>
+    <select id="edit-prop"></select>
+    <label>Color</label>
+    <input id="edit-color" type="color" value="#59a14f" />
+    <label>Line weight <span id="edit-weight-val">3</span></label>
+    <input id="edit-weight" type="range" min="1" max="10" step="1" value="3" />
+    <label>Fill transparency <span id="edit-fill-val">0.25</span></label>
+    <input id="edit-fill" type="range" min="0" max="1" step="0.05" value="0.25" />
+    <label><input id="edit-dash" type="checkbox" /> Dashed</label>
+    <div>
+      <span class="btn" id="edit-export">⬇ Export GeoJSON</span>
+      <label class="btn">⬆ Import<input id="edit-import" type="file" accept=".geojson,.json" hidden /></label>
+    </div>
+    <div id="edit-status" style="margin-top:6px;color:#666;font-size:11px;"></div>
+  </div>
 
   <script src="vendor/leaflet/leaflet.js"></script>
   <script src="vendor/geoman/leaflet-geoman.min.js"></script>
