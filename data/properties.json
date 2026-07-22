@@ -1,0 +1,1214 @@
+{
+  "categories": [
+    "Academic Buildings",
+    "Residence Halls",
+    "Cascade Complex",
+    "Athletics & Recreation",
+    "Student Services",
+    "Facilities & Operations",
+    "Campus Areas & Grounds",
+    "Student Family Housing"
+  ],
+  "properties": [
+    {
+      "id": "art",
+      "name": "Art",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Art"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "art-east",
+      "name": "Art East",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Art East"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "bookstore",
+      "name": "Bookstore",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Bookstore"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "britt",
+      "name": "Britt",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Britt"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "central",
+      "name": "Central",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Central"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "churchill",
+      "name": "Churchill",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Churchill"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "computing-services",
+      "name": "Computing Services",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Computing Services"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "digital-media-center",
+      "name": "Digital Media Center",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Digital Media Center"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "ecp",
+      "name": "ECP",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "ECP"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "ed-psych",
+      "name": "Ed/Psych",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Ed/Psych"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "jpr",
+      "name": "JPR",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "JPR"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "library",
+      "name": "Library",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Library"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "library-coffee",
+      "name": "Library Coffee",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Library Coffee"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "marion-ady",
+      "name": "Marion Ady",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Marion Ady"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "modular-building",
+      "name": "Modular Building",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Modular Building"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "music",
+      "name": "Music",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Music"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "olli",
+      "name": "OLLI",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "OLLI"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "plunkett",
+      "name": "Plunkett",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Plunkett"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "rotc",
+      "name": "ROTC",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "ROTC"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "schneider-museum",
+      "name": "Schneider Museum",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Schneider Museum"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "science",
+      "name": "Science",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Science"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "sours",
+      "name": "Sours",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Sours"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "stevenson-union",
+      "name": "Stevenson Union",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Stevenson Union"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "taylor",
+      "name": "Taylor",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Taylor"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "theater",
+      "name": "Theater",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Theater"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "thalden-pavilion",
+      "name": "Thalden Pavilion",
+      "category": "Academic Buildings",
+      "famis_locations": [
+        "Thalden Pavilion"
+      ],
+      "defaultColor": "#4e79a7",
+      "mapped": false
+    },
+    {
+      "id": "cox",
+      "name": "Cox",
+      "category": "Residence Halls",
+      "famis_locations": [
+        "Cox"
+      ],
+      "defaultColor": "#59a14f",
+      "mapped": false
+    },
+    {
+      "id": "greensprings",
+      "name": "Greensprings",
+      "category": "Residence Halls",
+      "famis_locations": [
+        "Greensprings"
+      ],
+      "defaultColor": "#59a14f",
+      "mapped": false
+    },
+    {
+      "id": "greensprings-a",
+      "name": "Greensprings A",
+      "category": "Residence Halls",
+      "famis_locations": [
+        "Greensprings A"
+      ],
+      "defaultColor": "#59a14f",
+      "mapped": false
+    },
+    {
+      "id": "greensprings-b",
+      "name": "Greensprings B",
+      "category": "Residence Halls",
+      "famis_locations": [
+        "Greensprings B"
+      ],
+      "defaultColor": "#59a14f",
+      "mapped": false
+    },
+    {
+      "id": "greensprings-c",
+      "name": "Greensprings C",
+      "category": "Residence Halls",
+      "famis_locations": [
+        "Greensprings C"
+      ],
+      "defaultColor": "#59a14f",
+      "mapped": false
+    },
+    {
+      "id": "greensprings-d",
+      "name": "Greensprings D",
+      "category": "Residence Halls",
+      "famis_locations": [
+        "Greensprings D"
+      ],
+      "defaultColor": "#59a14f",
+      "mapped": false
+    },
+    {
+      "id": "madrone",
+      "name": "Madrone",
+      "category": "Residence Halls",
+      "famis_locations": [
+        "Madrone"
+      ],
+      "defaultColor": "#59a14f",
+      "mapped": false
+    },
+    {
+      "id": "mcloughlin",
+      "name": "McLoughlin",
+      "category": "Residence Halls",
+      "famis_locations": [
+        "McLoughlin"
+      ],
+      "defaultColor": "#59a14f",
+      "mapped": false
+    },
+    {
+      "id": "raider-village",
+      "name": "Raider Village",
+      "category": "Residence Halls",
+      "famis_locations": [
+        "Raider Village"
+      ],
+      "defaultColor": "#59a14f",
+      "mapped": false
+    },
+    {
+      "id": "shasta",
+      "name": "Shasta",
+      "category": "Residence Halls",
+      "famis_locations": [
+        "Shasta"
+      ],
+      "defaultColor": "#59a14f",
+      "mapped": false
+    },
+    {
+      "id": "suzanne-holmes",
+      "name": "Suzanne Holmes",
+      "category": "Residence Halls",
+      "famis_locations": [
+        "Suzanne Holmes"
+      ],
+      "defaultColor": "#59a14f",
+      "mapped": false
+    },
+    {
+      "id": "suzy-hill",
+      "name": "Suzy Hill",
+      "category": "Residence Halls",
+      "famis_locations": [
+        "Suzy Hill"
+      ],
+      "defaultColor": "#59a14f",
+      "mapped": false
+    },
+    {
+      "id": "res-halls",
+      "name": "Res Halls",
+      "category": "Residence Halls",
+      "famis_locations": [
+        "Res Halls"
+      ],
+      "defaultColor": "#59a14f",
+      "mapped": false
+    },
+    {
+      "id": "cascade",
+      "name": "Cascade",
+      "category": "Cascade Complex",
+      "famis_locations": [
+        "Cascade"
+      ],
+      "defaultColor": "#9c755f",
+      "mapped": false
+    },
+    {
+      "id": "aspen",
+      "name": "Aspen",
+      "category": "Cascade Complex",
+      "famis_locations": [
+        "Aspen"
+      ],
+      "defaultColor": "#9c755f",
+      "mapped": false
+    },
+    {
+      "id": "baker",
+      "name": "Baker",
+      "category": "Cascade Complex",
+      "famis_locations": [
+        "Baker"
+      ],
+      "defaultColor": "#9c755f",
+      "mapped": false
+    },
+    {
+      "id": "cedar",
+      "name": "Cedar",
+      "category": "Cascade Complex",
+      "famis_locations": [
+        "Cedar"
+      ],
+      "defaultColor": "#9c755f",
+      "mapped": false
+    },
+    {
+      "id": "diamond",
+      "name": "Diamond",
+      "category": "Cascade Complex",
+      "famis_locations": [
+        "Diamond"
+      ],
+      "defaultColor": "#9c755f",
+      "mapped": false
+    },
+    {
+      "id": "emerald",
+      "name": "Emerald",
+      "category": "Cascade Complex",
+      "famis_locations": [
+        "Emerald"
+      ],
+      "defaultColor": "#9c755f",
+      "mapped": false
+    },
+    {
+      "id": "forest",
+      "name": "Forest",
+      "category": "Cascade Complex",
+      "famis_locations": [
+        "Forest"
+      ],
+      "defaultColor": "#9c755f",
+      "mapped": false
+    },
+    {
+      "id": "glacier",
+      "name": "Glacier",
+      "category": "Cascade Complex",
+      "famis_locations": [
+        "Glacier"
+      ],
+      "defaultColor": "#9c755f",
+      "mapped": false
+    },
+    {
+      "id": "hawthorne",
+      "name": "Hawthorne",
+      "category": "Cascade Complex",
+      "famis_locations": [
+        "Hawthorne"
+      ],
+      "defaultColor": "#9c755f",
+      "mapped": false
+    },
+    {
+      "id": "ivy",
+      "name": "Ivy",
+      "category": "Cascade Complex",
+      "famis_locations": [
+        "Ivy"
+      ],
+      "defaultColor": "#9c755f",
+      "mapped": false
+    },
+    {
+      "id": "raider-stadium",
+      "name": "Raider Stadium",
+      "category": "Athletics & Recreation",
+      "famis_locations": [
+        "Raider Stadium"
+      ],
+      "defaultColor": "#e15759",
+      "mapped": false
+    },
+    {
+      "id": "softball-field",
+      "name": "Softball Field",
+      "category": "Athletics & Recreation",
+      "famis_locations": [
+        "Softball Field"
+      ],
+      "defaultColor": "#e15759",
+      "mapped": false
+    },
+    {
+      "id": "lithia-pavilion",
+      "name": "Lithia Pavilion",
+      "category": "Athletics & Recreation",
+      "famis_locations": [
+        "Lithia Pavilion"
+      ],
+      "defaultColor": "#e15759",
+      "mapped": false
+    },
+    {
+      "id": "fitness-center",
+      "name": "Fitness Center",
+      "category": "Athletics & Recreation",
+      "famis_locations": [
+        "Fitness Center"
+      ],
+      "defaultColor": "#e15759",
+      "mapped": false
+    },
+    {
+      "id": "student-rec-center",
+      "name": "Student Rec Center",
+      "category": "Athletics & Recreation",
+      "famis_locations": [
+        "Student Rec Center"
+      ],
+      "defaultColor": "#e15759",
+      "mapped": false
+    },
+    {
+      "id": "north-campus-rec",
+      "name": "North Campus Rec",
+      "category": "Athletics & Recreation",
+      "famis_locations": [
+        "North Campus Rec"
+      ],
+      "defaultColor": "#e15759",
+      "mapped": false
+    },
+    {
+      "id": "north-ticket-booth",
+      "name": "North Ticket Booth",
+      "category": "Athletics & Recreation",
+      "famis_locations": [
+        "North Ticket Booth"
+      ],
+      "defaultColor": "#e15759",
+      "mapped": false
+    },
+    {
+      "id": "south-ticket-booth",
+      "name": "South Ticket Booth",
+      "category": "Athletics & Recreation",
+      "famis_locations": [
+        "South Ticket Booth"
+      ],
+      "defaultColor": "#e15759",
+      "mapped": false
+    },
+    {
+      "id": "the-hawk",
+      "name": "The Hawk",
+      "category": "Student Services",
+      "famis_locations": [
+        "The Hawk"
+      ],
+      "defaultColor": "#edc948",
+      "mapped": false
+    },
+    {
+      "id": "student-health",
+      "name": "Student Health",
+      "category": "Student Services",
+      "famis_locations": [
+        "Student Health"
+      ],
+      "defaultColor": "#edc948",
+      "mapped": false
+    },
+    {
+      "id": "admissions",
+      "name": "Admissions",
+      "category": "Student Services",
+      "famis_locations": [
+        "Admissions"
+      ],
+      "defaultColor": "#edc948",
+      "mapped": false
+    },
+    {
+      "id": "campbell-center",
+      "name": "Campbell Center",
+      "category": "Student Services",
+      "famis_locations": [
+        "Campbell Center"
+      ],
+      "defaultColor": "#edc948",
+      "mapped": false
+    },
+    {
+      "id": "equipment-pool",
+      "name": "Equipment Pool",
+      "category": "Facilities & Operations",
+      "famis_locations": [
+        "Equipment Pool"
+      ],
+      "defaultColor": "#b07aa1",
+      "mapped": false
+    },
+    {
+      "id": "fmp",
+      "name": "FMP",
+      "category": "Facilities & Operations",
+      "famis_locations": [
+        "FMP"
+      ],
+      "defaultColor": "#b07aa1",
+      "mapped": false
+    },
+    {
+      "id": "campus-public-safety",
+      "name": "Campus Public Safety",
+      "category": "Facilities & Operations",
+      "famis_locations": [
+        "Campus Public Safety"
+      ],
+      "defaultColor": "#b07aa1",
+      "mapped": false
+    },
+    {
+      "id": "landscape",
+      "name": "Landscape",
+      "category": "Facilities & Operations",
+      "famis_locations": [
+        "Landscape"
+      ],
+      "defaultColor": "#b07aa1",
+      "mapped": false
+    },
+    {
+      "id": "central-heat-plant",
+      "name": "Central Heat Plant",
+      "category": "Facilities & Operations",
+      "famis_locations": [
+        "Central Heat Plant"
+      ],
+      "defaultColor": "#b07aa1",
+      "mapped": false
+    },
+    {
+      "id": "south-heat-plant",
+      "name": "South Heat Plant",
+      "category": "Facilities & Operations",
+      "famis_locations": [
+        "South Heat Plant"
+      ],
+      "defaultColor": "#b07aa1",
+      "mapped": false
+    },
+    {
+      "id": "recycle-center",
+      "name": "Recycle Center",
+      "category": "Facilities & Operations",
+      "famis_locations": [
+        "Recycle Center"
+      ],
+      "defaultColor": "#b07aa1",
+      "mapped": false
+    },
+    {
+      "id": "filter-plant",
+      "name": "Filter Plant",
+      "category": "Facilities & Operations",
+      "famis_locations": [
+        "Filter Plant"
+      ],
+      "defaultColor": "#b07aa1",
+      "mapped": false
+    },
+    {
+      "id": "campus-wide",
+      "name": "Campus Wide",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "Campus Wide"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "all-lots",
+      "name": "All Lots",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "All Lots"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "parking-lot",
+      "name": "Parking Lot",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "Parking Lot"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "academic",
+      "name": "Academic",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "Academic"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "roca-arboretum",
+      "name": "Roca Arboretum",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "Roca Arboretum"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "farm",
+      "name": "Farm",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "Farm"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "ecos-garden",
+      "name": "ECOS Garden",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "ECOS Garden"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "sustainability-center",
+      "name": "Sustainability Center",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "Sustainability Center"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "president-s-residence",
+      "name": "President's Residence",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "President's Residence"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "sfh-houses",
+      "name": "SFH Houses",
+      "category": "Student Family Housing",
+      "famis_locations": [
+        "SFH Houses"
+      ],
+      "defaultColor": "#ff9da7",
+      "mapped": false
+    },
+    {
+      "id": "safh-community-center",
+      "name": "SAFH Community Center",
+      "category": "Student Family Housing",
+      "famis_locations": [
+        "SAFH Community Center"
+      ],
+      "defaultColor": "#ff9da7",
+      "mapped": false
+    },
+    {
+      "id": "safh-quincy",
+      "name": "SAFH Quincy",
+      "category": "Student Family Housing",
+      "famis_locations": [
+        "SAFH Quincy"
+      ],
+      "defaultColor": "#ff9da7",
+      "mapped": false
+    },
+    {
+      "id": "safh-wightman",
+      "name": "SAFH Wightman",
+      "category": "Student Family Housing",
+      "famis_locations": [
+        "SAFH Wightman"
+      ],
+      "defaultColor": "#ff9da7",
+      "mapped": false
+    },
+    {
+      "id": "1038-henry",
+      "name": "1038 Henry",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1038 Henry"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "1040-henry",
+      "name": "1040 Henry",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1040 Henry"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "1049-ashland-st",
+      "name": "1049 Ashland St",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1049 Ashland St"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "1056-henry",
+      "name": "1056 Henry",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1056 Henry"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "1058-henry",
+      "name": "1058 Henry",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1058 Henry"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "1060-henry",
+      "name": "1060 Henry",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1060 Henry"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "1066-1-2-henry",
+      "name": "1066 1/2 Henry",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1066 1/2 Henry"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "1066-henry",
+      "name": "1066 Henry",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1066 Henry"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "1077-1079",
+      "name": "1077/1079",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1077/1079"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "1077-1079a",
+      "name": "1077/1079A",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1077/1079A"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "1077-1079b",
+      "name": "1077/1079B",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1077/1079B"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "1077-1079c",
+      "name": "1077/1079C",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1077/1079C"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "1077-1079d",
+      "name": "1077/1079D",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1077/1079D"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "1349-oregon-st",
+      "name": "1349 Oregon St",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1349 Oregon St"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "1352-madrone",
+      "name": "1352 Madrone",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1352 Madrone"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "1383-oregon",
+      "name": "1383 Oregon",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1383 Oregon"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "1538-webster",
+      "name": "1538 Webster",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1538 Webster"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "1546-webster",
+      "name": "1546 Webster",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1546 Webster"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "1551-webster-st",
+      "name": "1551 Webster St",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1551 Webster St"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "1554-1-2-webster",
+      "name": "1554 1/2 Webster",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1554 1/2 Webster"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "1554-webster",
+      "name": "1554 Webster",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1554 Webster"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "1555-webster",
+      "name": "1555 Webster",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "1555 Webster"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "164-wightman",
+      "name": "164 Wightman",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "164 Wightman"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "380-wightman",
+      "name": "380 Wightman",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "380 Wightman"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "381-s-mountain",
+      "name": "381 S Mountain",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "381 S Mountain"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "381-walker-ave",
+      "name": "381 Walker Ave",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "381 Walker Ave"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "384-stadium",
+      "name": "384 Stadium",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "384 Stadium"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "391-s-mountain-ave",
+      "name": "391 S Mountain Ave",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "391 S Mountain Ave"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "393-walker",
+      "name": "393 Walker",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "393 Walker"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "423-walker-ave",
+      "name": "423 Walker Ave",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "423 Walker Ave"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "435-walker",
+      "name": "435 Walker",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "435 Walker"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "455-walker",
+      "name": "455 Walker",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "455 Walker"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "467-walker",
+      "name": "467 Walker",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "467 Walker"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "521-s-mountain",
+      "name": "521 S Mountain",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "521 S Mountain"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "527-s-mountain",
+      "name": "527 S Mountain",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "527 S Mountain"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "580-elkader",
+      "name": "580 Elkader",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "580 Elkader"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "668-rocca",
+      "name": "668 Rocca",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "668 Rocca"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    },
+    {
+      "id": "697-indiana-st",
+      "name": "697 Indiana St",
+      "category": "Campus Areas & Grounds",
+      "famis_locations": [
+        "697 Indiana St"
+      ],
+      "defaultColor": "#76b7b2",
+      "mapped": false
+    }
+  ]
+}
