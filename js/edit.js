@@ -1,5 +1,6 @@
 // js/edit.js — ES module, loaded only under ?edit=1. Uses global L + Geoman.
-// Two jobs: (1) draw & style boundaries, (2) manage the property roster.
+// Two jobs: (1) draw/edit/style boundaries, (2) manage the property roster.
+// fc.features is authoritative: every Geoman create/edit/remove syncs back into it.
 const BOUNDS_KEY = 'sou-grounds-map:draft';
 const ROSTER_KEY = 'sou-grounds-map:roster-draft';
 
@@ -16,24 +17,29 @@ export function initEditMode(app) {
   const autosaveBounds = () => localStorage.setItem(BOUNDS_KEY, JSON.stringify(fc));
   const autosaveRoster = () => localStorage.setItem(ROSTER_KEY,
     JSON.stringify({ categories: roster.categories, properties: roster.properties }));
+  const clearBoundsDraft = () => localStorage.removeItem(BOUNDS_KEY);
+  const clearRosterDraft = () => localStorage.removeItem(ROSTER_KEY);
 
-  // ---- restore drafts (crash safety) ----
+  // ---- restore drafts (crash safety). Drafts exist ONLY while there are unexported
+  //      edits — they are cleared on Export/Import — so a prompt here means real
+  //      unsaved work. Copy shows counts so an already-published draft is obvious. ----
   try {
     const rd = JSON.parse(localStorage.getItem(ROSTER_KEY) || 'null');
     if (rd && Array.isArray(rd.properties) && Array.isArray(rd.categories)
-        && confirm('Restore your unsaved property-list edits from this browser?')) {
+        && confirm(`Restore ${rd.properties.length} property-list edits saved in THIS browser but never exported?\n\nOK = use the browser draft · Cancel = keep the published list (${roster.properties.length}).`)) {
       roster.categories = rd.categories; roster.properties = rd.properties;
     }
   } catch { /* ignore bad draft */ }
   try {
     const bd = JSON.parse(localStorage.getItem(BOUNDS_KEY) || 'null');
     if (bd && Array.isArray(bd.features) && bd.features.length
-        && confirm('Restore your unsaved boundary edits from this browser?')) {
+        && confirm(`Restore ${bd.features.length} boundary edit(s) saved in THIS browser but never exported?\n\nOK = use the browser draft · Cancel = keep the published boundaries.`)) {
       fc.features = bd.features;
     }
   } catch { /* ignore bad draft */ }
 
-  // ---- selects + fields ----
+  // ---- category select (with a "＋ New category…" sentinel) ----
+  let lastCat = roster.categories[0];   // last real (non-sentinel) category chosen
   function refreshCategorySelect(selectedCat) {
     const cat = $('rp-category');
     cat.innerHTML = '';
@@ -42,9 +48,22 @@ export function initEditMode(app) {
     }
     const nw = document.createElement('option'); nw.value = '__new__'; nw.textContent = '＋ New category…';
     cat.append(nw);
-    if (selectedCat && roster.categories.includes(selectedCat)) cat.value = selectedCat;
+    if (selectedCat && roster.categories.includes(selectedCat)) { cat.value = selectedCat; lastCat = selectedCat; }
   }
+  $('rp-category').addEventListener('change', () => {
+    const v = $('rp-category').value;
+    if (v !== '__new__') { lastCat = v; return; }
+    const name = (prompt('New category name:') || '').trim();
+    if (name && !roster.categories.includes(name)) {
+      roster.categories.push(name); autosaveRoster(); refreshCategorySelect(name);
+    } else if (name && roster.categories.includes(name)) {
+      refreshCategorySelect(name);                 // typed an existing one → just select it
+    } else {
+      refreshCategorySelect(lastCat);              // cancelled → revert to the prior real choice
+    }
+  });
 
+  // ---- fields + property select ----
   function loadFieldsFor(id) {
     const p = roster.properties.find(x => x.id === id);
     if (!p) { $('rp-name').value = ''; $('rp-famis').value = ''; refreshCategorySelect(); return; }
@@ -54,7 +73,6 @@ export function initEditMode(app) {
     $('rp-famis').value = (p.famis_locations || []).join(', ');
     refreshCategorySelect(p.category);
   }
-
   function refreshPropertySelect(selectId) {
     const keep = selectId != null ? selectId : sel.value;
     sel.innerHTML = '';
@@ -66,19 +84,7 @@ export function initEditMode(app) {
     if (keep && roster.properties.some(p => p.id === keep)) sel.value = keep;
     loadFieldsFor(sel.value);
   }
-
   sel.addEventListener('change', () => loadFieldsFor(sel.value));
-
-  $('rp-category').addEventListener('change', () => {
-    if ($('rp-category').value !== '__new__') return;
-    const name = (prompt('New category name:') || '').trim();
-    if (name && !roster.categories.includes(name)) {
-      roster.categories.push(name); autosaveRoster(); refreshCategorySelect(name);
-    } else {
-      const p = roster.properties.find(x => x.id === sel.value);
-      refreshCategorySelect(p ? p.category : roster.categories[0]);
-    }
-  });
 
   // ---- boundary draw + style ----
   const currentStyle = () => ({
@@ -90,8 +96,9 @@ export function initEditMode(app) {
   $('edit-weight').addEventListener('input', () => $('edit-weight-val').textContent = $('edit-weight').value);
   $('edit-fill').addEventListener('input', () => $('edit-fill-val').textContent = $('edit-fill').value);
 
+  // Draw markers/circles/rectangles/rotate + polygon-cut are off; edit/drag/remove are ON and wired below.
   map.pm.addControls({ position: 'topleft', drawMarker: false, drawCircle: false,
-    drawCircleMarker: false, drawText: false, drawRectangle: false, rotateMode: false });
+    drawCircleMarker: false, drawText: false, drawRectangle: false, rotateMode: false, cutPolygon: false });
 
   map.on('pm:create', e => {
     const entry = roster.properties.find(p => p.id === sel.value);
@@ -108,11 +115,38 @@ export function initEditMode(app) {
     status(`Added ${geo.properties.kind} for ${entry.name} (${fc.features.length} total). Export boundaries to publish.`);
   });
 
+  // Geoman edited/dragged a shape → write the new geometry back to its fc feature.
+  map.on('pm:update', e => {
+    const f = e.layer && e.layer.feature;
+    const i = f ? fc.features.indexOf(f) : -1;
+    if (i < 0) return;
+    fc.features[i].geometry = e.layer.toGeoJSON().geometry;
+    autosaveBounds(); rerender();
+    status('Updated boundary geometry. Export boundaries to publish.');
+  });
+
+  // Geoman removed a shape → drop its fc feature so it doesn't reappear on rerender
+  // and the property becomes deletable.
+  map.on('pm:remove', e => {
+    const f = e.layer && e.layer.feature;
+    const i = f ? fc.features.indexOf(f) : -1;
+    if (i < 0) return;
+    const name = fc.features[i].properties && fc.features[i].properties.name;
+    fc.features.splice(i, 1);
+    autosaveBounds(); rerender();
+    status(`Removed a boundary${name ? ' for ' + name : ''} (${fc.features.length} left). Export boundaries to publish.`);
+  });
+
   function rerender() {
     for (const g of app.groups.values()) map.removeLayer(g);
     app.groups = window.SOULayers.render(map, fc);
     window.SOULayers.buildPanel($('layer-panel'), lib.buildLayerTree(roster), app.groups, map, { showUnmapped: true });
     for (const g of app.groups.values()) g.addTo(map);
+    // Re-sync the panel checkboxes to reality (all layers are on) — else the tri-state
+    // control desyncs after every edit (parent toggle would need two clicks).
+    const panel = $('layer-panel');
+    for (const cb of panel.querySelectorAll('.prop input:not([disabled])')) cb.checked = true;
+    for (const pc of panel.querySelectorAll('.cat > summary > input:not([disabled])')) { pc.checked = true; pc.indeterminate = false; }
   }
 
   // ---- roster operations ----
@@ -124,7 +158,8 @@ export function initEditMode(app) {
     if (roster.properties.some(p => p.id === id)) {
       alert(`A property with id "${id}" already exists — pick a different name.`); return;
     }
-    const category = $('rp-category').value === '__new__' ? roster.categories[0] : $('rp-category').value;
+    const catVal = $('rp-category').value;
+    const category = (catVal === '__new__' || !catVal) ? (lastCat || roster.categories[0]) : catVal;
     roster.properties.push({
       id, name, category, famis_locations: parseFamis($('rp-famis').value),
       defaultColor: $('rp-color').value, mapped: false,
@@ -139,7 +174,8 @@ export function initEditMode(app) {
     if (!p) { alert('Select a property first.'); return; }
     const name = $('rp-name').value.trim();
     if (!name) { alert('Name cannot be empty.'); return; }
-    const category = $('rp-category').value === '__new__' ? p.category : $('rp-category').value;
+    const catVal = $('rp-category').value;
+    const category = (catVal === '__new__' || !catVal) ? p.category : catVal;
     const color = $('rp-color').value;
     p.name = name; p.category = category; p.defaultColor = color;
     p.famis_locations = parseFamis($('rp-famis').value);
@@ -162,7 +198,7 @@ export function initEditMode(app) {
     if (!p) { alert('Select a property first.'); return; }
     const n = fc.features.filter(f => f.properties && f.properties.id === id).length;
     if (n > 0) {
-      alert(`"${p.name}" has ${n} drawn boundary/ies — delete the shape(s) on the map first (Geoman delete tool), then delete the property.`);
+      alert(`"${p.name}" has ${n} drawn boundary/ies — remove the shape(s) with the Geoman delete tool (top-left, the trash icon) first, then delete the property.`);
       return;
     }
     if (!confirm(`Delete property "${p.name}"? (It has no boundaries.)`)) return;
@@ -181,12 +217,14 @@ export function initEditMode(app) {
 
   $('edit-export').addEventListener('click', () => {
     download('boundaries.geojson', JSON.stringify(fc, null, 2) + '\n', 'application/geo+json');
+    clearBoundsDraft();   // published → no longer "unsaved"
     status('Exported boundaries.geojson — commit it to data/ to publish.');
   });
   $('rp-export').addEventListener('click', () => {
     download('properties.json',
       JSON.stringify({ categories: roster.categories, properties: roster.properties }, null, 2) + '\n',
       'application/json');
+    clearRosterDraft();
     status('Exported properties.json — commit it to data/ to publish.');
   });
 
@@ -197,7 +235,7 @@ export function initEditMode(app) {
       try {
         const parsed = JSON.parse(r.result);
         if (!parsed || !Array.isArray(parsed.features)) throw new Error('bad');
-        fc.features = parsed.features; rerender(); autosaveBounds();
+        fc.features = parsed.features; clearBoundsDraft(); rerender();
         status(`Imported ${fc.features.length} boundaries.`);
       } catch { alert('Not a valid boundaries GeoJSON.'); }
     };
@@ -212,7 +250,7 @@ export function initEditMode(app) {
         if (!parsed || !Array.isArray(parsed.properties) || !Array.isArray(parsed.categories)) throw new Error('bad');
         if (!confirm(`Replace the current property list (${roster.properties.length}) with the imported one (${parsed.properties.length})?`)) return;
         roster.categories = parsed.categories; roster.properties = parsed.properties;
-        autosaveRoster(); refreshPropertySelect(); rerender();
+        clearRosterDraft(); refreshPropertySelect(); rerender();
         status(`Imported ${roster.properties.length} properties.`);
       } catch { alert('Not a valid properties.json.'); }
     };
@@ -222,5 +260,5 @@ export function initEditMode(app) {
   // ---- init ----
   refreshPropertySelect();
   rerender();   // reflect any restored drafts
-  status('Edit mode ready. Draw & style boundaries, or open “Manage properties” to edit the list — then Export.');
+  status('Edit mode ready. Draw/edit boundaries, or open “Manage properties” to edit the list — then Export.');
 }
